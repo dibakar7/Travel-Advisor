@@ -1,43 +1,37 @@
-import React, {useState} from "react";
+import React from "react";
 import { Autocomplete } from '@react-google-maps/api';
 import { AppBar, Toolbar, Typography, InputBase, Box } from "@material-ui/core";
+import paperplane from './images1/paper-plane.png';
 import SearchIcon from '@material-ui/icons/Search';
 
 import useStyles from './style';
-const Header = ({ setCoordinates }) => {
+const Header = ({ onPlaceChanged, onLoad }) => {
     const classes = useStyles();
-    const [autoComplete, setAutoComplete] = useState(null);
-
-    const onLoad = (autoC) => setAutoComplete(autoC);
-
-    //please visit google map documentation to find more information of geometry.location.lat/lng()
-    const onPlaceChanged = () => {
-        const lat = autoComplete.getPlace().geometry.location.lat();
-        const lng = autoComplete.getPlace().geometry.location.lng();
-
-        setCoordinates({lat, lng});
-    }
+    
+    
     return (
-        <AppBar position="static">
+        /* providing the style prop and add the backgroundColor property to say, pink and it turned the color to pink => style={{ backgroundColor: "pink", color: "black"}}*/
+        <AppBar position="sticky" className={classes.header} style={{width: "100%", height: "65px", boxShadow: "1px 3px 2px #cf8b25"}}>
             <Toolbar className={classes.toolbar}>
-                <Typography variant="h5" className={classes.title}>
+                <Typography variant="h5" className={classes.title1} style={{color: "#522914", alignItems: "center"}}>
                     Travel Advisor
                 </Typography>
+                <img src={paperplane} alt="paper-plane" style={{ width: "42px", height: "35px", position: "absolute", left: "280px", top: "2px"}} />
                 <Box display="flex">
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="h6" className={classes.title2} style={{color: "#cf8b25", alignItems: "center"}}>
                         Explore new places
                     </Typography>
                     <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                         <div className={classes.search}>
-                            <div className={classes.searchIcon}>
+                            <div className={classes.searchIcon} style={{color: "#cf8b25"}}>
                                 <SearchIcon />
                             </div>
-                            <InputBase placeholder="Search..." classes={{ root: classes.inputRoot, input: classes.inputInput }} />
+                            <InputBase id="searchInput" placeholder="Search..." classes={{ root: classes.inputRoot, input: classes.inputInput }} style={{color: "#cf8b25"}}/>
                         </div>
                     </Autocomplete> 
                 </Box>
             </Toolbar>
         </AppBar>
     );
-}
+};
 export default Header;
