@@ -7,6 +7,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import useStyles from './style';
 const Header = ({ onPlaceChanged, onLoad }) => {
     const classes = useStyles();
+    const[popup, setPopup] = useState(false);
+
+    const handleClickOpen=()=>{
+        setPopup(!popup);
+    }
+
+    const closePopup=()=>{
+        setPopup(false);
+    }
     
     
     return (
@@ -17,6 +26,25 @@ const Header = ({ onPlaceChanged, onLoad }) => {
                     Travel Advisor
                 </Typography>
                 <img src={paperplane} alt="paper-plane" style={{ width: "42px", height: "35px", position: "absolute", left: "280px", top: "2px"}} />
+                <div className="appPop">
+                  <button onClick={handleClickOpen}>Open Popup</button>
+                  <div>
+                    {popup?
+                        <div className="popup">
+                            <div className="pop-header">
+                                <h1>Popup message</h1>
+                                <h1 onClick={closePopup}>X</h1>
+                            </div>
+                            <p>
+                                Due to Google API billing issue only the search bar will not work for some days, really sorry for this
+                                inconvenience. I am working on this. You can drag google map to explore attractions, hotels & restaurants 
+                                around your favourite tourist spot.
+                            </p>
+                            <h3>Thank You!</h3>
+                        </div>
+                        :""}
+                  </div>
+                </div>
                 <Box display="flex">
                     <Typography variant="h6" className={classes.title2} style={{color: "#cf8b25", alignItems: "center"}}>
                         Explore new places
